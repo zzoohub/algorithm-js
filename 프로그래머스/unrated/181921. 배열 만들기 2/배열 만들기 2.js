@@ -1,13 +1,17 @@
 function solution(l, r) {
-  const arr = Array.from({ length: r - l + 1}).map((x, i) => String(i + l));
-  let result = [];
-  for (let x of arr) {
-    let bool = true;
-    for (let i = 1; i < 10; i++) {
-      if (i !== 5 && x.includes(String(i))) bool = false;
+    function generateNumbers(n) {
+        if (n === 0) {
+            return [''];
+        }
+        const subNumbers = generateNumbers(n - 1);
+        return subNumbers.map(num => num + '0').concat(subNumbers.map(num => num + '5'));
     }
-    if (bool) result.push(Number(x));
-  }
-  if (!result[0]) result.push(-1);
-  return result;
+
+    // l과 r 사이의 범위에 맞는 숫자를 찾습니다.
+    const validNumbers = generateNumbers(String(r).length)
+        .map(num => parseInt(num, 10))
+        .filter(num => num >= l && num <= r);
+
+    // 유효한 숫자가 없으면 -1을 반환합니다.
+    return validNumbers.length ? validNumbers.sort((a, b) => a - b) : [-1];
 }
