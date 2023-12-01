@@ -3,7 +3,7 @@ function solution(arr) {
         // 50보다 크거나 같은 짝수라면 2로 나누고, 50보다 작은 홀수라면 2를 곱한 후 1을 더합니다.
         if (n >= 50 && n % 2 === 0) {
             return n / 2;
-        } else if (n < 50 && n % 2 !== 0) {
+        } else if (n < 50 && n % 2 === 1) {
             return n * 2 + 1;
         }
         return n;
