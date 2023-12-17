@@ -6,21 +6,21 @@ function solution(keyinput, board) {
     keyinput.forEach((key) => {
         switch (key) {
             case "left":
-                if (Math.abs(x - 1) > xx) break;
+                if (Math.abs(x - 1) > xx) return;
                 x -= 1;
-                break;
+                return;
             case "right":
-                if (Math.abs(x + 1) > xx) break;
+                if (Math.abs(x + 1) > xx) return;
                 x += 1;
-                break;
+                return;
             case "up":
-                if (Math.abs(y + 1) > yy) break;
+                if (Math.abs(y + 1) > yy) return;
                 y += 1;
-                break;
+                return;
             case "down":
-                if (Math.abs(y - 1) > yy) break;
+                if (Math.abs(y - 1) > yy) return;
                 y -= 1;
-                break;
+                return;
         }
     });
 
