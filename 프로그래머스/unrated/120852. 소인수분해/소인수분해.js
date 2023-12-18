@@ -14,5 +14,5 @@ function solution(n) {
     
     if(n > 2) result.push(n)
     
-    return [...new Set(result)].sort((a, b) => a - b)
+    return [...new Set(result)]
 }
