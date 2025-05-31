@@ -6,7 +6,7 @@ function solution(s) {
     if (str === "1") return;
 
     const originalLen = str.length;
-    const filtered = str.replace(/0/g, ""); // "0" 제거한 문자열
+    const filtered = str.replaceAll("0", ""); // "0" 제거한 문자열
     const filteredLen = filtered.length;
 
     deletedZeroCount += originalLen - filteredLen;
