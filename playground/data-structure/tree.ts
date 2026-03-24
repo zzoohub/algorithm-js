@@ -1,6 +1,6 @@
-class TreeNode<T> {
+class Node<T> {
   value: T;
-  children: TreeNode<T>[];
+  children: Node<T>[];
 
   constructor(value: T) {
     this.value = value;
@@ -9,19 +9,19 @@ class TreeNode<T> {
 }
 
 class Tree<T> {
-  root: TreeNode<T> | null;
+  root: Node<T> | null;
   constructor() {
     this.root = null;
   }
 
-  addChild(parent: TreeNode<T>, value: T) {
-    parent.children.push(new TreeNode(value));
+  addChild(parent: Node<T>, value: T) {
+    parent.children.push(new Node(value));
   }
 
   dfs(value: T) {
     if (!this.root) return null;
 
-    function search(node: TreeNode<T>): TreeNode<T> | null {
+    function search(node: Node<T>): Node<T> | null {
       if (value === node.value) return node;
       for (const child of node.children) {
         const found = search(child);
@@ -36,7 +36,7 @@ class Tree<T> {
   bfs(value: T) {
     if (!this.root) return null;
 
-    function search(node: TreeNode<T>): TreeNode<T> | null {
+    function search(node: Node<T>): Node<T> | null {
       const queue = [node];
       while (queue.length > 0) {
         const current = queue.shift()!;
