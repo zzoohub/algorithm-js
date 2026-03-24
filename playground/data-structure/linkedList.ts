@@ -1,4 +1,4 @@
-class Node<T> {
+export class Node<T> {
   value: T;
   next: Node<T> | null = null;
 
@@ -7,11 +7,12 @@ class Node<T> {
   }
 }
 
-class LinkedList<T> {
+export class LinkedList<T> {
   head: Node<T> | null = null;
   tail: Node<T> | null = null;
 
-  append(node: Node<T>) {
+  append(data: T) {
+    const node = new Node(data);
     if (!this.head) {
       this.head = node;
       this.tail = node;
@@ -21,7 +22,8 @@ class LinkedList<T> {
     this.tail = node;
   }
 
-  prepend(node: Node<T>) {
+  prepend(data: T) {
+    const node = new Node(data);
     if (!this.head) {
       this.head = node;
       this.tail = node;
@@ -29,6 +31,20 @@ class LinkedList<T> {
     }
     node.next = this.head;
     this.head = node;
+  }
+
+  dequeue() {
+    if (!this.head) return null;
+    const dequeued = this.head.value;
+
+    this.head = this.head.next;
+    if (!this.head) this.tail = null;
+    return dequeued;
+  }
+
+  peek() {
+    if (!this.head) return null;
+    return this.head.value;
   }
 
   delete(data: T) {
