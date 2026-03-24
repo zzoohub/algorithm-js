@@ -33,4 +33,11 @@ class HashTable<T> {
     const found = this.store[index].find(([k]) => k === key);
     return found ? found[1] : null; // ✅ value만 반환
   }
+
+  delete(key: string) {
+    const index = this.hash(key);
+    if (!this.store[index]) return;
+
+    this.store[index] = this.store[index].filter(([k]) => k !== key);
+  }
 }
