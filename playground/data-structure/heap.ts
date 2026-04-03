@@ -22,14 +22,14 @@ class Heap {
   }
 
   private swap(i: number, j: number) {
-    [this.store[i], this.store[j]] = [this.store[j], this.store[i]];
+    [this.store[i], this.store[j]] = [this.store[j]!, this.store[i]!];
   }
 
   private bubbleUp() {
     let i = this.store.length - 1;
     while (i > 0) {
       const parent = this.parentIndex(i);
-      if (!this.shouldSwap(this.store[i], this.store[parent])) break;
+      if (!this.shouldSwap(this.store[i]!, this.store[parent]!)) break;
       this.swap(i, parent);
       i = parent;
     }
@@ -44,12 +44,12 @@ class Heap {
 
       if (
         left < this.store.length &&
-        this.shouldSwap(this.store[left], this.store[target])
+        this.shouldSwap(this.store[left]!, this.store[target]!)
       )
         target = left;
       if (
         right < this.store.length &&
-        this.shouldSwap(this.store[right], this.store[target])
+        this.shouldSwap(this.store[right]!, this.store[target]!)
       )
         target = right;
 
@@ -72,7 +72,7 @@ class Heap {
       this.store[0] = last;
       this.bubbleDown();
     }
-    return top;
+    return top!;
   }
 
   peek(): number | null {
