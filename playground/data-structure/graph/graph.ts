@@ -25,12 +25,12 @@ class Graph<T> {
   removeEdge(from: T, to: T): void {
     const neighbors = this.adjacencyList.get(from);
     if (neighbors) {
-      this.adjacencyList.set(from, neighbors.filter((e) => e.node !== to));
+      this.adjacencyList.set(from, neighbors.filter((edge) => edge.node !== to));
     }
     if (!this.directed) {
       const reverseNeighbors = this.adjacencyList.get(to);
       if (reverseNeighbors) {
-        this.adjacencyList.set(to, reverseNeighbors.filter((e) => e.node !== from));
+        this.adjacencyList.set(to, reverseNeighbors.filter((edge) => edge.node !== from));
       }
     }
   }
@@ -39,7 +39,7 @@ class Graph<T> {
     if (!this.adjacencyList.has(vertex)) return;
     // 다른 정점들의 인접 리스트에서도 제거
     for (const [, edges] of this.adjacencyList) {
-      const idx = edges.findIndex((e) => e.node === vertex);
+      const idx = edges.findIndex((edge) => edge.node === vertex);
       if (idx !== -1) edges.splice(idx, 1);
     }
     this.adjacencyList.delete(vertex);
@@ -58,7 +58,7 @@ class Graph<T> {
   }
 
   hasEdge(from: T, to: T): boolean {
-    return this.adjacencyList.get(from)?.some((e) => e.node === to) ?? false;
+    return this.adjacencyList.get(from)?.some((edge) => edge.node === to) ?? false;
   }
 
   get vertexCount(): number {

@@ -49,7 +49,7 @@ class Tree<T> {
   height(node: TreeNode<T> | null = this.root): number {
     if (!node) return 0;
     if (node.children.length === 0) return 1;
-    return 1 + Math.max(...node.children.map((c) => this.height(c)));
+    return 1 + Math.max(...node.children.map((child) => this.height(child)));
   }
 }
 

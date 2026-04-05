@@ -42,9 +42,9 @@ class BloomFilter {
   // i번째 해시: 두 개의 기본 해시를 조합 (Double Hashing)
   // h_i(x) = (h1(x) + i * h2(x)) % m
   private getHash(value: string, i: number): number {
-    const h1 = this.fnv1a(value);
-    const h2 = this.djb2(value);
-    return Math.abs((h1 + i * h2) % this.bitCount);
+    const primaryHash = this.fnv1a(value);
+    const secondaryHash = this.djb2(value);
+    return Math.abs((primaryHash + i * secondaryHash) % this.bitCount);
   }
 
   private setBit(pos: number): void {

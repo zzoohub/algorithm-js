@@ -45,12 +45,15 @@ function quickSort(arr: number[], low = 0, high = arr.length - 1): number[] {
 }
 
 function partition(arr: number[], low: number, high: number): number {
-  // 피벗을 중간값(median of three)으로 선택해서 최악의 경우를 줄임
+  // Median of Three: low, mid, high 중 중간값을 피벗으로 선택
+  // 이미 정렬된 배열에서 최악의 경우(O(n²))를 방지한다
   const mid = Math.floor((low + high) / 2);
   if (arr[low]! > arr[mid]!) [arr[low], arr[mid]] = [arr[mid]!, arr[low]!];
   if (arr[low]! > arr[high]!) [arr[low], arr[high]] = [arr[high]!, arr[low]!];
   if (arr[mid]! > arr[high]!) [arr[mid], arr[high]] = [arr[high]!, arr[mid]!];
-  [arr[mid], arr[high]] = [arr[high]!, arr[mid]!]; // 피벗을 끝으로
+  // 위 세 번의 swap으로 arr[low] <= arr[mid] <= arr[high]가 됨
+  // 중간값(arr[mid])을 피벗으로 사용하기 위해 끝으로 이동
+  [arr[mid], arr[high]] = [arr[high]!, arr[mid]!];
 
   const pivot = arr[high]!;
   let i = low - 1;
@@ -76,12 +79,14 @@ function countingSort(arr: number[]): number[] {
   const range = max - min + 1;
   const count = new Array(range).fill(0);
 
+  // min을 빼서 0-based 인덱스로 변환 (음수도 처리 가능)
   for (const num of arr) count[num - min]++;
   for (let i = 1; i < range; i++) count[i] += count[i - 1];
 
   const result = new Array(arr.length);
-  // 뒤에서부터 순회해서 안정 정렬 유지
+  // 뒤에서부터 순회해서 안정 정렬(같은 값의 원래 순서) 유지
   for (let i = arr.length - 1; i >= 0; i--) {
+    // count를 먼저 1 감소시켜서 결과 배열의 위치를 결정
     const pos = --count[arr[i]! - min];
     result[pos] = arr[i];
   }

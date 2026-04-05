@@ -122,10 +122,10 @@ function lis(nums: number[]): number {
   const tails: number[] = [];
 
   for (const num of nums) {
-    // 이진 탐색으로 삽입 위치 찾기
+    // 이진 탐색으로 num이 들어갈 위치를 찾는다
     let lo = 0, hi = tails.length;
     while (lo < hi) {
-      const mid = (lo + hi) >> 1;
+      const mid = (lo + hi) >> 1; // Math.floor((lo + hi) / 2) 와 동일
       if (tails[mid]! < num) lo = mid + 1;
       else hi = mid;
     }

@@ -30,11 +30,12 @@ class SkipList {
   }
 
   insert(value: number): void {
-    // 각 레벨에서 삽입 위치의 이전 노드를 기록
+    // 각 레벨에서 새 노드가 삽입될 위치의 바로 이전 노드를 기록
+    // update[i] = 레벨 i에서 새 노드의 앞에 올 노드
     const update: SkipNode<number>[] = new Array(this.maxLevel + 1);
     let current = this.header;
 
-    // 위에서부터 내려가며 위치 탐색
+    // 가장 높은 레벨부터 내려가며 삽입 위치 탐색
     for (let i = this.level; i >= 0; i--) {
       while (current.forward[i] && current.forward[i]!.value < value) {
         current = current.forward[i]!;

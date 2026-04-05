@@ -17,9 +17,9 @@ class Heap<T> {
     return new Heap<number>((a, b) => a > b);
   }
 
-  private parentIndex(i: number) { return Math.floor((i - 1) / 2); }
-  private leftIndex(i: number) { return 2 * i + 1; }
-  private rightIndex(i: number) { return 2 * i + 2; }
+  private parentIndex(index: number) { return Math.floor((index - 1) / 2); }
+  private leftIndex(index: number) { return 2 * index + 1; }
+  private rightIndex(index: number) { return 2 * index + 2; }
 
   private swap(i: number, j: number) {
     [this.store[i], this.store[j]] = [this.store[j]!, this.store[i]!];
