@@ -1,5 +1,15 @@
 # Patricia Trie (패트리샤 트라이)
 
+## 왜 필요한가?
+
+이더리움에는 수백만 개의 계정이 있고, 각 계정의 잔액/코드/스토리지를 저장해야 한다.
+
+지갑 주소: 0x71C765...6F (40자 hex = 40단계 깊이의 Trie!)
+수백만 계정 × 40단계 = **수천만 개의 노드** → 매 블록마다 업데이트하면 너무 느리다.
+
+Patricia Trie: 공통 경로를 하나의 노드로 압축 → 노드 수 대폭 감소
++ Merkle 해시: 상태가 바뀌면 변경된 경로만 다시 해시 → 빠른 검증
+
 ## 개념
 
 **Patricia Trie**(Practical Algorithm To Retrieve Information Coded In Alphanumeric)는
