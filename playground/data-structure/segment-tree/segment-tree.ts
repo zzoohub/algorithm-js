@@ -30,6 +30,7 @@ class SegmentTree {
     this.n = arr.length;
     // 트리 크기: 4 * n이면 충분 (완전 이진 트리 + 여유)
     this.tree = new Array(4 * this.n).fill(0);
+    // 4*n인 이유: 세그먼트 트리는 완전 이진 트리이므로 최대 2*2n = 4n 노드가 필요
     this.build(arr, 1, 0, this.n - 1);
   }
 

@@ -21,6 +21,9 @@ class SkipList {
   }
 
   // 동전 던지기로 노드의 레벨을 결정
+  // 동전 던지기: 50% 확률로 레벨을 올린다.
+  // 결과적으로 레벨 L에 있을 확률 = 1/2^L → 높은 레벨은 드물다.
+  // 이 분포가 탐색을 로그 깊이로 만든다 (express lane처럼 건너뛰기).
   private randomLevel(): number {
     let level = 0;
     while (Math.random() < this.probability && level < this.maxLevel) {
@@ -63,6 +66,7 @@ class SkipList {
   }
 
   search(value: number): boolean {
+    // 탐색: 최상단에서 시작 → 오른쪽으로 이동 → 목표보다 커지면 한 레벨 아래로
     let current = this.header;
     for (let i = this.level; i >= 0; i--) {
       while (current.forward[i] && current.forward[i]!.value < value) {

@@ -14,6 +14,9 @@ function relu(x: number): number {
   return Math.max(0, x);
 }
 
+// ReLU 미분: x > 0이면 1 (그대로 통과), x ≤ 0이면 0 (차단)
+// "Dying ReLU" 문제: 한번 음수 영역에 빠진 뉴런은 기울기가 0이라
+// 영영 활성화되지 않을 수 있다. 해결책: Leaky ReLU (음수에 작은 기울기 0.01 부여)
 function reluDerivative(x: number): number {
   return x > 0 ? 1 : 0;
 }

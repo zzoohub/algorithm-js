@@ -82,7 +82,9 @@ class SimpleNeuralNetwork {
     const db2 = dz2;
 
     // --- 은닉층 기울기 ---
-    // ∂L/∂a1 = W2 × dz2  (기울기를 역방향으로 전달)
+    // ∂L/∂a1 = W2 × dz2
+    // 의미: "출력층의 오류를 은닉층으로 역전파"
+    // W2가 크면 → 그 은닉 뉴런이 출력에 큰 영향 → 큰 기울기를 받음
     const da1 = this.W2.map(row =>
       row.reduce((sum, w, j) => sum + w * dz2[j]!, 0)
     );

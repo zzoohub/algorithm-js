@@ -105,6 +105,12 @@ function initCentroidsPlusPlus(data: Point[], k: number): Point[] {
   centroids.push([...data[Math.floor(Math.random() * data.length)]!]);
 
   for (let c = 1; c < k; c++) {
+    // K-Means++ 핵심: 거리²에 비례하는 확률로 다음 중심 선택
+    // 예) 기존 중심과의 거리: [1, 10, 5]
+    //     거리²:             [1, 100, 25]
+    //     확률(정규화):       [0.8%, 79.4%, 19.8%]
+    //     → 거리 10인 점이 79% 확률로 선택됨 → 자연스럽게 분산!
+
     // 각 점에서 가장 가까운 기존 중심까지의 거리²
     const distances = data.map(point => {
       const minDist = Math.min(...centroids.map(cent => euclideanDist(point, cent)));

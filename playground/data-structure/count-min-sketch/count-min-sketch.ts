@@ -47,6 +47,7 @@ class CountMinSketch {
 
   // 원소 추가 (빈도 증가)
   add(value: string, count = 1): void {
+    // 모든 행(각각 다른 해시 함수)의 해당 열에 count를 더한다
     for (let i = 0; i < this.depth; i++) {
       const col = this.hash(value, this.seeds[i]!) % this.width;
       this.table[i]![col]! += count;
@@ -56,6 +57,7 @@ class CountMinSketch {
   // 빈도 추정: 각 행의 해당 열 값 중 최솟값
   // 실제 빈도 ≤ 반환값 (과대 추정만 가능, 과소 추정 없음)
   query(value: string): number {
+    // 최솟값을 취하는 이유: 충돌은 카운터를 올리기만 하므로, 가장 적게 충돌한 행이 실제에 가장 가깝다
     let min = Infinity;
     for (let i = 0; i < this.depth; i++) {
       const col = this.hash(value, this.seeds[i]!) % this.width;

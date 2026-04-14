@@ -93,6 +93,8 @@ function prim(
   // 간단한 우선순위 큐 (실무에서는 Min Heap 사용)
   const pq: Array<{ from: number; to: number; weight: number }> = [];
 
+  // 어떤 정점에서 시작해도 MST의 총 가중치는 같다.
+  // (MST는 방향이 없으므로 시작점에 무관하게 최소 비용 보장)
   // 정점 0에서 시작
   inMST.add(0);
   for (const edge of adjacency.get(0) ?? []) {

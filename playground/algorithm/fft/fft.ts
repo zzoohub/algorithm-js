@@ -71,11 +71,13 @@ function fft(coefficients: Complex[], inverse = false): Complex[] {
     const w: Complex = [Math.cos(angle * k), Math.sin(angle * k)];
 
     // Butterfly 연산:
-    // result[k]       = even[k] + w · odd[k]
-    // result[k + n/2] = even[k] - w · odd[k]
+    // 단위원의 핵심 성질: w^(n/2) = -1 (반바퀴 돌면 부호 반전)
+    // 이 성질 덕분에 k번째와 k+n/2번째를 한 번에 계산:
+    //   result[k]       = even[k] + w · odd[k]
+    //   result[k + n/2] = even[k] - w · odd[k]  ← 부호만 반전!
     const t = cMul(w, oddFFT[k]!);
-    result[k] = cAdd(evenFFT[k]!, t);
-    result[k + n / 2] = cSub(evenFFT[k]!, t);
+    result[k] = cAdd(evenFFT[k]!, t);         // k번째
+    result[k + n / 2] = cSub(evenFFT[k]!, t); // k+n/2번째 (부호 반전)
   }
 
   return result;

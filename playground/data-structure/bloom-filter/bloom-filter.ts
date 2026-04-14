@@ -39,8 +39,8 @@ class BloomFilter {
 
   // --- 내부 ---
 
-  // i번째 해시: 두 개의 기본 해시를 조합 (Double Hashing)
-  // h_i(x) = (h1(x) + i * h2(x)) % m
+  // Double Hashing: k개의 독립 해시 함수 대신 2개의 기본 해시로 k개를 생성
+  // h_i(x) = (h1(x) + i * h2(x)) % m  — 메모리와 성능이 훨씬 효율적
   private getHash(value: string, i: number): number {
     const primaryHash = this.fnv1a(value);
     const secondaryHash = this.djb2(value);

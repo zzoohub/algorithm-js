@@ -41,15 +41,16 @@ class HyperLogLog {
   add(value: string): void {
     const hash = this.hash(value);
 
-    // 상위 precision 비트 → 버킷 번호
+    // 상위 precision비트 → 버킷 번호 (16384개 중 하나)
     // 나머지 비트 → 연속 0 카운트 대상
     const bucket = hash >>> (32 - this.precision);
     const remaining = (hash << this.precision) | (1 << (this.precision - 1));
 
+    // 나머지 비트에서 연속 0 카운트 = "동전 던지기" 시뮬레이션
     // 연속 0의 수 + 1 (leading zeros of remaining bits)
     const zeros = Math.clz32(remaining) + 1;
 
-    // 최댓값만 유지 (더 "운 좋은" 관측을 기록)
+    // 더 "운 좋은"(연속 0이 더 많은) 관측만 기록
     if (zeros > this.registers[bucket]!) {
       this.registers[bucket] = zeros;
     }

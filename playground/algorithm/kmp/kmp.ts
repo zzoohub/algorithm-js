@@ -38,7 +38,11 @@ function buildFailure(pattern: string): number[] {
 
   for (let i = 1; i < m; i++) {
     // 불일치 시: j를 failure[j-1]로 되돌린다
-    // (이미 일치한 접두사의 "접두사=접미사" 정보를 활용)
+    // 왜? "지금까지 일치한 부분(0~j-1)"에서
+    // "접두사=접미사"인 부분을 찾으면, 그 길이부터 다시 비교하면 된다.
+    // 예: 패턴 "ABABD"에서 i=4(D)에 불일치하면,
+    //     "ABAB"의 접두사=접미사 = "AB" (길이 2)
+    //     → j를 2로 돌리면 "AB" 이후부터 비교 재개
     while (j > 0 && pattern[i] !== pattern[j]) {
       j = failure[j - 1]!;
     }

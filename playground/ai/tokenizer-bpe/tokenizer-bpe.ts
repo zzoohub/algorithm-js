@@ -41,6 +41,16 @@ function trainBPE(
 
   const merges: Array<[string, string]> = [];
 
+  // 예시 워크스루:
+  // 학습 데이터: ["low", "low", "low", "lower"]
+  // 초기 wordFreq: {"l o w </w>": 3, "l o w e r </w>": 1}
+  //
+  // 반복 1: (l, o) 빈도=4 → "lo" 생성
+  //   → {"lo w </w>": 3, "lo w e r </w>": 1}
+  // 반복 2: (lo, w) 빈도=4 → "low" 생성
+  //   → {"low </w>": 3, "low e r </w>": 1}
+  // 이런 식으로 자주 나타나는 쌍이 하나의 토큰으로 합쳐진다!
+
   for (let i = 0; i < numMerges; i++) {
     // 가장 빈도 높은 인접 쌍 찾기
     const pairCounts = new Map<string, number>();

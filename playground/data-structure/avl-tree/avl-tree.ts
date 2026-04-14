@@ -108,23 +108,23 @@ class AVLTree<T> {
     this.updateHeight(node);
     const bf = this.balanceFactor(node);
 
-    // LL: 왼쪽이 무거운데, 왼쪽 자식도 왼쪽이 무거움
+    // LL: 왼쪽이 무거운데(bf>1), 왼쪽 자식도 왼쪽이 무거움(>=0) → 오른쪽 회전 1회
     if (bf > 1 && this.balanceFactor(node.left!) >= 0) {
       return this.rotateRight(node);
     }
 
-    // LR: 왼쪽이 무거운데, 왼쪽 자식은 오른쪽이 무거움
+    // LR: 왼쪽이 무거운데(bf>1), 왼쪽 자식은 오른쪽이 무거움(<0) → 2회 회전
     if (bf > 1 && this.balanceFactor(node.left!) < 0) {
       node.left = this.rotateLeft(node.left!);
       return this.rotateRight(node);
     }
 
-    // RR: 오른쪽이 무거운데, 오른쪽 자식도 오른쪽이 무거움
+    // RR: 오른쪽이 무거운데(bf<-1), 오른쪽 자식도 오른쪽이 무거움(<=0) → 왼쪽 회전 1회
     if (bf < -1 && this.balanceFactor(node.right!) <= 0) {
       return this.rotateLeft(node);
     }
 
-    // RL: 오른쪽이 무거운데, 오른쪽 자식은 왼쪽이 무거움
+    // RL: 오른쪽이 무거운데(bf<-1), 오른쪽 자식은 왼쪽이 무거움(>0) → 2회 회전
     if (bf < -1 && this.balanceFactor(node.right!) > 0) {
       node.right = this.rotateRight(node.right!);
       return this.rotateLeft(node);
